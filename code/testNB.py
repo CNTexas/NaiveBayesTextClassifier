@@ -8,7 +8,7 @@
 import os
 import time
 import math
-import numpy as np 
+import numpy as np
 import cPickle as p
 from init import getDocWordsList
 import re
@@ -65,7 +65,7 @@ def TextClassifier(textPath):
 	return ans
 
 def getClassNames(rootDir):
-	global classNames 
+	global classNames
 	isFile = os.path.isfile('classNames.data')
 	if isFile:
 		f = file('classNames.data', 'r')
@@ -93,9 +93,9 @@ def testNB(rootDir):
 		fileNum = len(fileNames)
 		cou += 1
 		className = classNames[cou - 1]
-		
+
 		print cou, className, parent
-		logHandle.write('\n' + className + '\n') 
+		logHandle.write('\n' + className + '\n')
 		an = 0
 		wn = 0
 		for i in range(int(fileNum*ratio), fileNum):
@@ -105,15 +105,15 @@ def testNB(rootDir):
 			ans = TextClassifier(filePath)
 			if ans == className:
 				an += 1
-				print 'Y', 
+				print 'Y',
 				logHandle.write('Y ')
 			else :
 				wn += 1
-				print ans, 
+				print ans,
 				print 'N',
 				logHandle.write(ans + ' ')
-		acNum += an 
-		wrongNum += wn 
+		acNum += an
+		wrongNum += wn
 		ANS[className] = [an, wn]
 		print an, '/', wn+an
 		logHandle.write(str(an) + '/' + str(wn+an))
@@ -126,8 +126,8 @@ def testNB(rootDir):
 	p.dump(ANS,f)
 	f.close()
 
-if __name__ == '__main__':
-
+def runTest():
+	global logHandle, vocabulary, clsPriPro,wordProOnClass
 	logHandle = file("testLog.txt", "w")
 	#load vocabulary.data
 	f1 = file('vocabulary.data', 'r')
@@ -147,3 +147,7 @@ if __name__ == '__main__':
 	print TextClassifier('../data/testText.txt')
 	testNB('../data/train')
 	logHandle.close()
+
+if __name__ == '__main__':
+	runTest()
+

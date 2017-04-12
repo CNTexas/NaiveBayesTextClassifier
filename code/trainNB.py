@@ -7,7 +7,7 @@
 
 import os
 import time
-import numpy as np 
+import numpy as np
 import cPickle as p
 from init import getDocWordsList
 import re
@@ -20,6 +20,7 @@ encodingType = 'utf-8'#训练集文本的字符编码
 def getVocabulary(rootDir):
 	# the vocabulary is not sorted
 	print 'get Vocabulary'
+	global logHandle
 	logHandle.write('get Vocabulary \n')
 	isFile = os.path.isfile('vocabulary.data')
 	if isFile:
@@ -27,7 +28,7 @@ def getVocabulary(rootDir):
 		ret = []
 		ret = p.load(f)
 		f.close()
-		return ret 
+		return ret
 	voca = {}
 	words = []
 	fileList = []
@@ -64,7 +65,7 @@ def getVocabulary(rootDir):
 	f.close()
 	print 'vocabulary length: ', len(ret)
 	logHandle.write('\nvocabulary length: ' + str(len(ret)))
-	return ret 
+	return ret
 
 def getClassNames(rootDir):
 	classNames = os.listdir(rootDir)
@@ -83,13 +84,13 @@ def classPriorProbility(rootDir):
 	if isFile:
 		f = file('classPriorProbility.data', 'r')
 		ret = {}
-		ret = p.load(f) 
+		ret = p.load(f)
 		f.close()
 		print 'load classPriorProbility ok...'
-		return ret 
+		return ret
 	allSum = 0
 	global vocabulary
-	print 'vocabulary length: ', len(vocabulary)
+	print 'vocabulary length : ', len(vocabulary)
 	#----------convert list to dict---
 	voca = {}
 	for word in vocabulary :
@@ -169,7 +170,7 @@ def wordProOnClass(rootDir) :
 		L = len(fileNames)
 		for i in range(0, int(L * ratio)):
 			fileName = fileNames[i]
-			#----just count -- 
+			#----just count --
 			tempCou += 1
 			print tempCou,
 			logHandle.write(str(tempCou) + " ")
@@ -201,8 +202,8 @@ def wordProOnClass(rootDir) :
 	p.dump(ret, f)
 	f.close()
 	return ret
-
-if __name__ == '__main__':
+def train():
+	global logHandle, vocabulary
 	startTime = time.time()
 
 	logHandle = file('trainLog.txt', 'w')
@@ -217,3 +218,6 @@ if __name__ == '__main__':
 	print 'consumu time : ', endTime - startTime
 	logHandle.write('\nconsumu time : '+ str(endTime - startTime))
 	logHandle.close()
+
+if __name__ == '__main__':
+	train()
