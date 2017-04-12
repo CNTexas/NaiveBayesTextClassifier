@@ -1,6 +1,6 @@
 # Naive Bayes Chinese Text Classifier
 
-[![Build Status](https://travis-ci.org/chrislusf/seaweedfs.svg?branch=master)](https://travis-ci.org/chrislusf/seaweedfs)
+[![Build Status](https://travis-ci.org/luckcul/NaiveBayesTextClassifier.svg?branch=master)](https://travis-ci.org/luckcul/NaiveBayesTextClassifier)
 
 利用朴素贝叶斯算法进行中文文本的分类。
 
